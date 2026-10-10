@@ -1,1 +1,39 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+<title>Todo App - Imran Nida</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{background:#f0f2f5;display:flex;flex-direction:column;align-items:center;padding:20px}
+h1{margin-top:20px} .sub{color:#666;margin-bottom:20px}
+.box{width:100%;max-width:380px;background:white;padding:20px;border-radius:20px;box-shadow:0 10px 20px rgba(0,0,0,0.1)}
+.input{display:flex;gap:8px;margin-bottom:15px}
+input{flex:1;padding:12px;border:2px solid #ddd;border-radius:10px}
+button.add{background:#5a67d8;color:white;border:none;padding:12px 18px;border-radius:10px;font-weight:bold;cursor:pointer}
+ul{list-style:none;padding:0}
+li{background:#f8f9fa;padding:12px;border-radius:10px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.del{background:#ff3b30;color:white;border:none;width:30px;height:30px;border-radius:6px;cursor:pointer}
+</style>
+</head>
+<body>
+<h1>Todo List App</h1>
+<p class="sub">My Second JavaScript Project</p>
+<div class="box">
+<div class="input">
+<input type="text" id="taskInput" placeholder="Naya kaam likhen...">
+<button class="add" onclick="addTask()">Add</button>
+</div>
+<ul id="list"></ul>
+</div>
+<script>
+let list=document.getElementById('list'); let inp=document.getElementById('taskInput');
+let tasks=JSON.parse(localStorage.getItem('todos'))||[];
+function show(){list.innerHTML=''; tasks.forEach((t,i)=>{list.innerHTML+=`<li><span>${t}</span><button class=del onclick="removeTask(${i})">X</button></li>`}); localStorage.setItem('todos',JSON.stringify(tasks));}
+function addTask(){if(inp.value.trim()=='')return; tasks.push(inp.value); inp.value=''; show();}
+function removeTask(i){tasks.splice(i,1); show();}
+inp.addEventListener("keypress", e=>{if(e.key==="Enter") addTask();});
+show();
+</script>
+</body>
+</html>
